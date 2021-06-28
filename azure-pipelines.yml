@@ -11,7 +11,7 @@ pool:
 
 variables:
   - name: BuildParameters.RestoreBuildProjects
-    value: '**/*.Build.sln'
+    value: '**/*.sln'
   - name: BuildParameters.TestProjects
     value: '**/*Test.??proj'
   - name: BuildParameters.ProjectKey
