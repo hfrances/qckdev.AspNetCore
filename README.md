@@ -1,10 +1,11 @@
 # qckdev.AspNetCore.Identity
  
 ```cs
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using qckdev.AspNetCore;
-using qckdev.AspNetCore.Middleware;
+using Microsoft.Extensions.Hosting;
 
 public void ConfigureServices(IServiceCollection services)
 {
@@ -27,6 +28,10 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 ```cs
 using Microsoft.Extensions.Configuration;
+using qckdev.AspNetCore.Infrastructure.Data;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class DataInitialization : IDataInitializer
 {
