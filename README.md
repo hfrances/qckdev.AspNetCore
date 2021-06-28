@@ -1,4 +1,4 @@
-# qckdev.AspNetCore.Identity
+# qckdev.AspNetCore
  
 ```cs
 using Microsoft.AspNetCore.Builder;
