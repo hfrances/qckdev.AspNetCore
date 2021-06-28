@@ -26,11 +26,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 ```
 
 ```cs
-using MediatR;
 using Microsoft.Extensions.Configuration;
-using qckdev.AspNetCore.Identity.Commands;
-using qckdev.AspNetCore.Identity.Infrastructure.Data;
-using qckdev.AspNetCore.Identity.Services;
 
 public class DataInitialization : IDataInitializer
 {
