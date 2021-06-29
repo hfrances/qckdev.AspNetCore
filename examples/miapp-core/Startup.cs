@@ -42,7 +42,7 @@ namespace miapp_core
                 endpoints.MapControllers();
             });
 
-            app.DataInitialization();
+            app.UseDataInitializer();
         }
     }
 }

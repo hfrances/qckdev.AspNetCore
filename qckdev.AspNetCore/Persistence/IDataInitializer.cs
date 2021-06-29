@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace qckdev.AspNetCore.Infrastructure.Data
+namespace qckdev.AspNetCore.Persistence
 {
     public interface IDataInitializer
     {

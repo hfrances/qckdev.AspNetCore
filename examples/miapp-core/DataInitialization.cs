@@ -1,4 +1,4 @@
-﻿using qckdev.AspNetCore.Infrastructure.Data;
+﻿using qckdev.AspNetCore.Persistence;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

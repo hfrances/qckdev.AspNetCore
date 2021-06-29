@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>miapp_core</RootNamespace>
+    <Version>0.2.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
