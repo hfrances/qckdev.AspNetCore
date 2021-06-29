@@ -49,10 +49,6 @@ steps:
    
       write-output "##vso[task.addattachment type=Distributedtask.Core.Summary;name=Environment Variables;]$fileName"
 
-- task: NuGetAuthenticate@0
-  inputs:
-    nuGetServiceConnections: '75c3df88-517d-4b07-9506-a9ac4e50b2c4'
-
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
@@ -105,5 +101,5 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: '75c3df88-517d-4b07-9506-a9ac4e50b2c4'
+    publishFeedCredentials: 'nuget.org'
   displayName: Push
