@@ -32,7 +32,7 @@ namespace miapp_core
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseExceptionHandlerResponse();
+            app.UseJsonExceptionHandler();
             app.UseRouting();
 
             app.UseAuthorization();

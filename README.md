@@ -17,7 +17,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
 	(...)
 
-	app.UseMiddleware<HandlerExceptionMiddleware>();
+	app.UseJsonExceptionHandler;
 	app.UseRouting();
 
 	(...)

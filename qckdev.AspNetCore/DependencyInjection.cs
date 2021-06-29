@@ -74,7 +74,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="app">The <see cref="Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
         /// <returns>The <see cref="Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
-        public static IApplicationBuilder UseExceptionHandlerResponse(this IApplicationBuilder app)
+        public static IApplicationBuilder UseJsonExceptionHandler(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionHandlerResponseMiddleware>();
 
