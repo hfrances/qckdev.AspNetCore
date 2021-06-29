@@ -92,7 +92,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '$(BuildParameters.RestoreBuildProjects)'
+    packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
 
 - task: NuGetAuthenticate@0
