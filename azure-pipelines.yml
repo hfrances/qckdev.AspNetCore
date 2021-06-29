@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- azure-pipelines
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -87,3 +88,20 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+    
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(BuildParameters.RestoreBuildProjects)'
+    versioningScheme: 'off'
+
+- task: NuGetAuthenticate@0
+  inputs:
+    nuGetServiceConnections: 'Nuget'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget'
