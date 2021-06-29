@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         initializer.InitializeAsync(cancellationToken)
                     );
                 }
-                Task.WhenAll(tasks);
+                Task.WhenAll(tasks).Wait();
             }
             return app;
         }
