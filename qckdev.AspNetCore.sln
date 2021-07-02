@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qckdev.AspNetCore", "qckdev
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{BA2409F6-79CF-4947-B80B-CF239367A8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miapp-core", "examples\miapp-core\miapp-core.csproj", "{7AE01166-84B5-456B-8A3F-6BE8A74A04F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "miapp-core", "examples\miapp-core\miapp-core.csproj", "{7AE01166-84B5-456B-8A3F-6BE8A74A04F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qckdev.AspNetCore.Test", "qckdev.AspNetCore.Test\qckdev.AspNetCore.Test.csproj", "{2C93738B-48F1-4074-AEAD-B035C32DF9D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{7AE01166-84B5-456B-8A3F-6BE8A74A04F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE01166-84B5-456B-8A3F-6BE8A74A04F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE01166-84B5-456B-8A3F-6BE8A74A04F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C93738B-48F1-4074-AEAD-B035C32DF9D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C93738B-48F1-4074-AEAD-B035C32DF9D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C93738B-48F1-4074-AEAD-B035C32DF9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C93738B-48F1-4074-AEAD-B035C32DF9D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
