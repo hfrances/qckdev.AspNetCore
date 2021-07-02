@@ -91,6 +91,7 @@ steps:
   inputs:
     reports: '**/*.[Oo]pencover.xml;**/[Oo]pencover.xml'
     targetdir: '$(Build.SourcesDirectory)/TestResults/'
+  continueOnError: true
   displayName: 'Coverage: Parse files'
 
 - task: PowerShell@2
