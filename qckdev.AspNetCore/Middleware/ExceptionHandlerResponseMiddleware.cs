@@ -40,11 +40,16 @@ namespace qckdev.AspNetCore.Middleware
 
             switch (ex)
             {
+                case HttpHandledException httpe:
+                    errorCode = (int)httpe.ErrorCode;
+                    logger.LogError(ex, $"Handled error from server ({errorCode})");
+                    error = SerializeErrors(httpe);
+                    break;
                 //case Exception e:
                 default:
+                    errorCode = (int)HttpStatusCode.InternalServerError;
                     logger.LogError(ex, "Error from server");
                     error = SerializeErrors(ex);
-                    errorCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }
 
@@ -74,19 +79,25 @@ namespace qckdev.AspNetCore.Middleware
             {
                 error = new SerializedError();
             }
+
             error.Message = ex.Message;
+            if (ex is HttpHandledException httpe)
+            {
+                error.Content = httpe.Content;
+            }
             if (ex.InnerException != null)
             {
                 error.InnerError = SerializeErrors(ex.InnerException);
             }
-
             return error;
         }
-
 
         private class SerializedError
         {
             public string Message { get; set; }
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            public dynamic Content { get; set; }
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             public SerializedError InnerError { get; set; }
