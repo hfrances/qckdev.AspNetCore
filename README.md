@@ -22,7 +22,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
 	(...)
 
-	app.UseJsonExceptionHandler;
+	app.UseJsonExceptionHandler();
 	app.UseRouting();
 
 	(...)
