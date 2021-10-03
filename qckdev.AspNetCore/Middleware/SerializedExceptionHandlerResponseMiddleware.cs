@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using qckdev.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace qckdev.AspNetCore.Middleware
 {
-    sealed class ExceptionHandlerResponseMiddleware
+    sealed class SerializedExceptionHandlerResponseMiddleware
     {
         RequestDelegate Next { get; }
-        ILogger<ExceptionHandlerResponseMiddleware> Logger { get; }
+        ILogger<SerializedExceptionHandlerResponseMiddleware> Logger { get; }
 
-        public ExceptionHandlerResponseMiddleware(RequestDelegate next, ILogger<ExceptionHandlerResponseMiddleware> logger)
+        public SerializedExceptionHandlerResponseMiddleware(RequestDelegate next, ILogger<SerializedExceptionHandlerResponseMiddleware> logger)
         {
             this.Next = next;
             this.Logger = logger;
@@ -33,7 +34,7 @@ namespace qckdev.AspNetCore.Middleware
             }
         }
 
-        private async Task HandlerExceptionAsync(HttpContext context, Exception ex, ILogger<ExceptionHandlerResponseMiddleware> logger)
+        private async Task HandlerExceptionAsync(HttpContext context, Exception ex, ILogger<SerializedExceptionHandlerResponseMiddleware> logger)
         {
             SerializedError error;
             int errorCode;
@@ -57,8 +58,7 @@ namespace qckdev.AspNetCore.Middleware
             context.Response.StatusCode = errorCode;
             if (error != null)
             {
-                var result = JsonConvert.SerializeObject(new { error },
-                    new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                var result = JsonConvert.SerializeObject(new { error });
                 await context.Response.WriteAsync(result);
             }
         }
@@ -96,10 +96,10 @@ namespace qckdev.AspNetCore.Middleware
         {
             public string Message { get; set; }
 
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             public dynamic Content { get; set; }
 
-            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             public SerializedError InnerError { get; set; }
 
         }

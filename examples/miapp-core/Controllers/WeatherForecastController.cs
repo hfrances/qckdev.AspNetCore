@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using qckdev.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,19 @@ namespace miapp_core.Controllers
                 Summary = summaries[rng.Next(summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("errorext")]
+        public IEnumerable<WeatherForecast> GetErrorExt()
+        {
+            throw new HttpHandledException(System.Net.HttpStatusCode.InternalServerError, "Some HttpHandledException with details.")
+            {
+                Content = new
+                {
+                    Property1 = "Value1",
+                    Property2 = "Value2"
+                }
+            };
         }
 
     }

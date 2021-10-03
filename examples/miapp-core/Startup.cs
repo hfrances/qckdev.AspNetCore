@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace miapp_core
@@ -18,9 +19,8 @@ namespace miapp_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .TryAddSingleton<WeatherService>()
-                .AddDataInitializer<DataInitialization>();
+            services.TryAddSingleton<WeatherService>();
+            services.AddDataInitializer<DataInitialization>();
             services.AddControllers();
         }
 
@@ -32,7 +32,7 @@ namespace miapp_core
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseJsonExceptionHandler();
+            app.UseSerializedExceptionHandler();
             app.UseRouting();
 
             app.UseAuthorization();

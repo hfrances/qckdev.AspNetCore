@@ -4,7 +4,9 @@
 <a><img src="https://hfrances.visualstudio.com/Main/_apis/build/status/qckdev.AspNetCore?branchName=master" alt="Azure Pipelines Status"/></a>
 
 # qckdev.AspNetCore
- 
+
+Provides a default set of tools for building an ASP.NET Core application.
+
 ```cs
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
