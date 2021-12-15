@@ -21,31 +21,55 @@ namespace qckdev.AspNetCore
         /// <param name="configuration">Application configuration properties to replace.</param>
         public static void ApplyEnvironmentVariables(IConfiguration configuration)
         {
+            ApplyEnvironmentVariables(
+                configuration
+                    .AsEnumerable()
+                    .ToDictionary(
+                        x => x.Key, y => y.Value, 
+                        StringComparer.OrdinalIgnoreCase
+                    )
+            );
+        }
+
+        /// <summary>
+        /// Searches and replaces environment variables in the application configuration properties. 
+        /// Environment variable are defined in the following format: '%VariableName%'.
+        /// </summary>
+        /// <param name="dictionary">Application configuration properties to replace.</param>
+        public static void ApplyEnvironmentVariables(IDictionary<string, string> dictionary)
+        {
             // https://regex101.com/r/bCmRKM/1
-            var pattern = @"(?:%(?<envar>\w+)%)(?<value>.*)";
+            // https://regex101.com/r/bCmRKM/2
+            const string pattern = @"(?<substring1>[^%].?[^%]*)?(?:%(?<envar>\w+)%)(?<substring2>[^%].?[^%]*)?";
             var regex = new Regex(pattern);
-            var dictionary = configuration
-                .AsEnumerable()
-                .ToDictionary(x => x.Key, y => y.Value);
-
-            foreach (var item in dictionary.Where(x => x.Value != null))
+            
+            foreach (var item in dictionary.ToArray().Where(x => x.Value != null))
             {
-                var match = regex.Match(item.Value);
+                var matches = regex.Matches(item.Value);
 
-                if (match.Success)
+                if (matches.Any())
                 {
-                    var variableName = match.Groups["envar"].Value;
+                    var list = new List<string>();
 
-                    if (dictionary.TryGetValue(variableName, out string @envar))
+                    foreach (Match match in matches)
                     {
-                        var newValue = match.Result(@$"{@envar}$2");
+                        var substring1 = match.Groups.GetValueOrDefault("substring1");
+                        var variableName = match.Groups["envar"].Value;
+                        var substring2 = match.Groups.GetValueOrDefault("substring2");
+                        string newValue;
 
-                        configuration[item.Key] = newValue;
+                        if (dictionary.TryGetValue(variableName, out string @envar))
+                        {
+                            newValue = string.Concat(substring1, @envar, substring2);
+                        }
+                        else
+                        {
+                            newValue = match.Value;
+                            System.Diagnostics.Debug.WriteLine($"Environment variable not found: '{variableName}'.");
+                        }
+                        list.Add(newValue);
                     }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Environment variable not found: {variableName}");
-                    }
+                    dictionary[item.Key] = string.Concat(list);
                 }
             }
         }
