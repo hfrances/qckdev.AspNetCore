@@ -39,7 +39,7 @@ namespace qckdev.AspNetCore.Test
                 { "SQLPWD", "mypwd" }
             };
 
-            ConfigurationHelper.ApplyEnvironmentVariables(dictionary);
+            ConfigurationHelper.ApplyEnvironmentVariables(dictionary, (key, value) => dictionary[key] = value);
             foreach (var pair in dictionary)
             {
                 Assert.AreEqual(expected[pair.Key], pair.Value, $"Key: {pair.Key}");

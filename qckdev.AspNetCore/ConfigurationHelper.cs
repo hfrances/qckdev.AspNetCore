@@ -27,7 +27,8 @@ namespace qckdev.AspNetCore
                     .ToDictionary(
                         x => x.Key, y => y.Value, 
                         StringComparer.OrdinalIgnoreCase
-                    )
+                    ),
+                (key, value) => configuration[key] = value
             );
         }
 
@@ -36,7 +37,7 @@ namespace qckdev.AspNetCore
         /// Environment variable are defined in the following format: '%VariableName%'.
         /// </summary>
         /// <param name="dictionary">Application configuration properties to replace.</param>
-        public static void ApplyEnvironmentVariables(IDictionary<string, string> dictionary)
+        public static void ApplyEnvironmentVariables(IDictionary<string, string> dictionary, Action<string, string> setValuePredicate)
         {
             // https://regex101.com/r/bCmRKM/1
             // https://regex101.com/r/bCmRKM/2
@@ -69,7 +70,7 @@ namespace qckdev.AspNetCore
                         }
                         list.Add(newValue);
                     }
-                    dictionary[item.Key] = string.Concat(list);
+                    setValuePredicate(item.Key, string.Concat(list));
                 }
             }
         }
