@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using qckdev.Net.Http;
 using qckdev.Text.Json;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace qckdev.AspNetCore.Middleware
 {
@@ -41,15 +43,22 @@ namespace qckdev.AspNetCore.Middleware
 
             switch (ex)
             {
+                case FetchFailedException httpf:
+                    errorCode = (int)httpf.StatusCode;
+                    logger.LogError(ex, $"Handled error from server ({errorCode})");
+                    logger.LogTrace((string)JsonConvert.SerializeObject(SerializeTrace(httpf)));
+                    error = SerializeErrors(httpf);
+                    break;
                 case HttpHandledException httpe:
                     errorCode = (int)httpe.ErrorCode;
                     logger.LogError(ex, $"Handled error from server ({errorCode})");
+                    logger.LogTrace((string)JsonConvert.SerializeObject(SerializeTrace(httpe)));
                     error = SerializeErrors(httpe);
                     break;
-                //case Exception e:
                 default:
                     errorCode = (int)HttpStatusCode.InternalServerError;
                     logger.LogError(ex, "Error from server");
+                    logger.LogTrace((string)JsonConvert.SerializeObject(SerializeTrace(ex)));
                     error = SerializeErrors(ex);
                     break;
             }
@@ -81,13 +90,61 @@ namespace qckdev.AspNetCore.Middleware
             }
 
             error.Message = ex.Message;
-            if (ex is HttpHandledException httpe)
+            if (ex is FetchFailedException httpf)
+            {
+                error.Content = httpf.Error;
+            }
+            else if (ex is HttpHandledException httpe)
             {
                 error.Content = httpe.Content;
             }
             if (ex.InnerException != null)
             {
                 error.InnerError = SerializeErrors(ex.InnerException);
+            }
+            return error;
+        }
+
+        private static dynamic SerializeTrace(Exception ex)
+        {
+            dynamic error;
+
+            if (ex is AggregateException aggregateException)
+            {
+                error = new
+                {
+                    ex.Message,
+                    InnerErrors = aggregateException.InnerExceptions.Select(SerializeTrace)
+                };
+            }
+            else if (ex is FetchFailedException httpf)
+            {
+                error = new
+                {
+                    requestUri = httpf.RequestUri,
+                    message = httpf.Message,
+                    errorCode = httpf.StatusCode,
+                    error = httpf.Error,
+                    innerError = (ex.InnerException == null ? null : SerializeTrace(ex.InnerException))
+                };
+            }
+            else if (ex is HttpHandledException httpe)
+            {
+                error = new
+                {
+                    message = httpe.Message,
+                    errorCode = httpe.ErrorCode,
+                    content = httpe.Content,
+                    innerError = (ex.InnerException == null ? null : SerializeTrace(ex.InnerException))
+                };
+            }
+            else
+            {
+                error = new
+                {
+                    message = ex.Message,
+                    innerError = (ex.InnerException == null ? null : SerializeTrace(ex.InnerException))
+                };
             }
             return error;
         }
