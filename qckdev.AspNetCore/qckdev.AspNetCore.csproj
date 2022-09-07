@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
     <Version>0.5.2-beta</Version>
     <Authors>hfrances</Authors>
     <Company>TrCode</Company>
@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
-    <PackageReference Include="qckdev.Text.Json" Version="0.1.0-alpha" />
+    <PackageReference Include="qckdev.Text.Json" Version="0.3.0-alpha" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using qckdev.Extensions.Configuration;
 
 namespace miapp_core
 {
@@ -12,6 +13,7 @@ namespace miapp_core
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Configuration.ApplyEnvironmentVariables();
         }
 
         public IConfiguration Configuration { get; }
