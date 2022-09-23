@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
-    <Version>0.6.1</Version>
+    <Version>0.6.2</Version>
     <Authors>hfrances</Authors>
     <Company>TrCode</Company>
     <Product>qckdev.AspNetCore (Preview)</Product>
@@ -14,11 +14,24 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     <PackageReference Include="qckdev.Net.Http.Exceptions" Version="0.7.0-beta" />
     <PackageReference Include="System.Text.Json" Version="6.0.0" />
     <PackageReference Include="qckdev.Text.Json" Version="0.3.0-alpha" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.25" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.25" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
   </ItemGroup>
 
   <ItemGroup>
