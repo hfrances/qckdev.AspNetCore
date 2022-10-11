@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.ExceptionServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -78,18 +79,16 @@ namespace qckdev.AspNetCore.Middleware
 
             if (ex is AggregateException aggregateException)
             {
-                error = new SerializedAggregateError();
-
-                ((SerializedAggregateError)error).InnerErrors =
-                    aggregateException.InnerExceptions
-                        .Select(SerializeErrors);
+                error = new SerializedAggregateError()
+                {
+                    InnerErrors = aggregateException.InnerExceptions.Select(SerializeErrors)
+                };
             }
             else
             {
                 error = new SerializedError();
             }
 
-            error.Message = ex.Message;
             if (ex is FetchFailedException httpf)
             {
                 error.Content = httpf.Error;
@@ -98,11 +97,25 @@ namespace qckdev.AspNetCore.Middleware
             {
                 error.Content = httpe.Content;
             }
+
             if (ex.InnerException != null)
             {
                 error.InnerError = SerializeErrors(ex.InnerException);
             }
+
+            error.Message = ex.Message;
+            error.TraceId = GetTraceId(error.Content);
+            if (error.TraceId == Guid.Empty)
+            {
+                error.TraceId = Guid.NewGuid();
+            }
+
             return error;
+        }
+
+        private static Guid GetTraceId(dynamic content)
+        {
+            return Guid.Empty;
         }
 
         private static dynamic SerializeTrace(Exception ex)
@@ -151,6 +164,9 @@ namespace qckdev.AspNetCore.Middleware
 
         private class SerializedError
         {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+            public Guid TraceId { get; set; }
+
             public string Message { get; set; }
 
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
