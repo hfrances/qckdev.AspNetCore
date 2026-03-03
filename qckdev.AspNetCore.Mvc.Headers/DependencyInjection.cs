@@ -19,20 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The service collection.</returns>
         public static IServiceCollection AddHttpHeaderAccessor(this IServiceCollection services)
         {
-            //  AddHttpContextAccessor is added implicitly or must be added manually
-            try
-            {
-                var method = typeof(IServiceCollection).GetMethod("AddHttpContextAccessor");
-                if (method != null)
-                {
-                    method.Invoke(null, new object[] { services });
-                }
-            }
-            catch
-            {
-                // Ignore if method not available
-            }
-
+            services.AddHttpContextAccessor();
             services.AddScoped<IHttpHeaderAccessor, HttpHeaderAccessor>();
             return services;
         }
@@ -43,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <typeparam name="THttpHeaderAttribute">The type of header attribute to validate.</typeparam>
         /// <param name="app">The <see cref="IApplicationBuilder"/>.</param>
         /// <returns>The application builder.</returns>
-        public static IApplicationBuilder UseHttpHeaderValidator<THttpHeaderAttribute>(this IApplicationBuilder app)
+        public static IApplicationBuilder UseHttpHeader<THttpHeaderAttribute>(this IApplicationBuilder app)
             where THttpHeaderAttribute : class, IHttpHeaderAttribute, new()
         {
             var header = Activator.CreateInstance<THttpHeaderAttribute>();
