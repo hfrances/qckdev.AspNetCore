@@ -7,7 +7,6 @@ namespace qckdev.AspNetCore.Localization
     /// <remarks>
     /// This interface is for backward compatibility. Consider moving to the localized version in qckdev.AspNetCore.Localization namespace.
     /// </remarks>
-    [System.Obsolete("Use the interface from qckdev.AspNetCore.Localization namespace instead.", false)]
     public interface IApplicationResource
     {
     }

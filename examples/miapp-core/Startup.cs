@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
+using qckdev.AspNetCore.Services;
+using qckdev.AspNetCore.Swagger;
 using qckdev.Extensions.Configuration;
 
 namespace miapp_core
@@ -23,19 +23,24 @@ namespace miapp_core
         {
             services.AddHttpContextAccessor();
             services.AddHostEnvironmentService();
-            //services.AddLocalization<ApplicationResource>();
+            services.AddLocalization<Localization.ApplicationResource>();
 
             services.TryAddSingleton<WeatherService>();
             services.AddDataInitializer<DataInitialization>();
+
             services.AddControllers();
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironmentService env)
         {
-            if (env.IsDevelopment() || env.IsStaging())
+
+            app.UsePathBase();
+            if (env.IsDevelopment() || env.IsDocker() || env.IsStaging())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
             }
 
             app.UseSerializedExceptionHandler();

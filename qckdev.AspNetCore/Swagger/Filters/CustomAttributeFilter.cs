@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using qckdev.AspNetCore.Http.Metadata;
-using qckdev.AspNetCore.Mvc.Headers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;

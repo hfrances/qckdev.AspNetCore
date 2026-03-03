@@ -27,7 +27,7 @@ namespace qckdev.AspNetCore.Exceptions
         /// </summary>
         /// <param name="statusCode">The HTTP status code for the exception.</param>
         /// <param name="resourceId">The resource identifier for message localization.</param>
-        public ApiException(HttpStatusCode statusCode, string? resourceId)
+        public ApiException(HttpStatusCode statusCode, string resourceId)
             : this(statusCode, resourceId, null)
         { }
 
@@ -37,7 +37,7 @@ namespace qckdev.AspNetCore.Exceptions
         /// <param name="statusCode">The HTTP status code for the exception.</param>
         /// <param name="resourceId">The resource identifier for message localization.</param>
         /// <param name="innerException">The inner exception that caused this exception.</param>
-        public ApiException(HttpStatusCode statusCode, string? resourceId, Exception? innerException)
+        public ApiException(HttpStatusCode statusCode, string resourceId, Exception? innerException)
             : base(statusCode, resourceId, innerException)
         {
             ResourceId = resourceId;
@@ -52,6 +52,7 @@ namespace qckdev.AspNetCore.Exceptions
         /// <param name="context">
         /// The <see cref="StreamingContext"/> that contains contextual information about the source or destination.
         /// </param>
+        [Obsolete]
         protected ApiException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     }

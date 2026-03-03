@@ -18,9 +18,9 @@ namespace qckdev.AspNetCore.Mvc.Controllers
     public abstract class ApiControllerBase : ControllerBase
     {
 
-        private IMediator _mediator;
-        private ILogger _logger;
-        private IStringLocalizer<IApplicationResource> _localizer;
+        private IMediator? _mediator;
+        private ILogger? _logger;
+        private IStringLocalizer<IApplicationResource>? _localizer;
 
         /// <summary>
         /// Gets the MediatR mediator instance.
@@ -39,7 +39,7 @@ namespace qckdev.AspNetCore.Mvc.Controllers
         /// <summary>
         /// Gets the localizer for application resources.
         /// </summary>
-        protected IStringLocalizer<IApplicationResource> Localizer
+        protected IStringLocalizer<IApplicationResource>? Localizer
             => _localizer ??= HttpContext.RequestServices.GetService<IStringLocalizer<IApplicationResource>>();
 
         /// <summary>

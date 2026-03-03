@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using qckdev.AspNetCore;
+using qckdev.AspNetCore.Exceptions;
+using qckdev.AspNetCore.Mvc.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +10,14 @@ using System.Threading.Tasks;
 
 namespace miapp_core.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [ApiController, Route("[controller]")]
+    public class WeatherForecastController : ApiControllerBase
     {
         WeatherService WeatherService { get; }
-        ILogger<WeatherForecastController> Logger { get; }
-       
 
         public WeatherForecastController(WeatherService weatherService, ILogger<WeatherForecastController> logger)
         {
             this.WeatherService = weatherService;
-            this.Logger = logger;
         }
 
         [HttpGet]

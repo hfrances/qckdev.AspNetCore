@@ -48,7 +48,7 @@ namespace qckdev.AspNetCore.Middlewares
                     error = SerializeErrors(apiex);
                     break;
                 case FetchFailedException httpf:
-                    errorCode = (int)httpf.StatusCode;
+                    errorCode = (int?)httpf.StatusCode;
                     logger.LogError(ex, $"Handled error from server ({errorCode})");
                     logger.LogTrace((string)JsonConvert.SerializeObject(SerializeTrace(httpf)));
                     error = SerializeErrors(httpf);
