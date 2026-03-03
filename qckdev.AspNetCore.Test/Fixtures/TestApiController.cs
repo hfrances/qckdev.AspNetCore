@@ -11,15 +11,15 @@ namespace qckdev.AspNetCore.Test.Fixtures
     /// Test controller for API testing with concrete Send methods
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/test")]
     public class TestApiController : ApiControllerBase
     {
         [HttpPost("send-request")]
-        public async Task<TResponse> SendRequest<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default)
+        public async Task<TestDataResponse> SendRequest(TestGetDataQuery request, CancellationToken cancellationToken = default)
             => await Send(request, cancellationToken);
 
         [HttpPost("send-void")]
-        public async Task SendVoidRequest(IRequest request, CancellationToken cancellationToken = default)
+        public async Task SendVoidRequest(TestVoidCommand request, CancellationToken cancellationToken = default)
             => await Send(request, cancellationToken);
 
         [HttpGet("health")]

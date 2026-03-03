@@ -22,7 +22,8 @@ namespace qckdev.AspNetCore.Test.Fixtures
                 .ConfigureServices(services =>
                 {
                     services.AddHttpContextAccessor();
-                    services.AddControllers();
+                    services.AddControllers()
+                        .AddApplicationPart(typeof(TestApiController).Assembly);
                     services.AddMediatR(cfg => 
                         cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
                 })
