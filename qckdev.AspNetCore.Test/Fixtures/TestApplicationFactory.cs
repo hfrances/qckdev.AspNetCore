@@ -88,10 +88,47 @@ namespace qckdev.AspNetCore.Test.Fixtures
     }
 
     /// <summary>
+    /// Web application factory for test-flag header integration testing
+    /// </summary>
+    public class TestFlagHeaderTestApplicationFactory : IDisposable
+    {
+        private TestServer? _testServer;
+
+        public TestFlagHeaderTestApplicationFactory()
+        {
+            _testServer = new TestServer(new WebHostBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddHttpContextAccessor();
+                    services.AddControllers()
+                        .AddApplicationPart(typeof(TestFlagHeaderTestController).Assembly);
+                    services.AddMediatR(cfg => 
+                        cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
+                })
+                .Configure(app =>
+                {
+                    // Add exception handling middleware first to catch exceptions from header validation
+                    app.UseSerializedExceptionHandler();
+                    app.UseRouting();
+                    // Add header validation middleware for test-flag header type
+                    app.UseHttpHeader<HttpTestFlagHeaderAttribute>();
+                    app.UseEndpoints(endpoints => endpoints.MapControllers());
+                }));
+        }
+
+        public HttpClient CreateClient()
+        {
+            return _testServer!.CreateClient();
+        }
+
+        public void Dispose()
+        {
+            _testServer?.Dispose();
+        }
+    }
+
+    /// <summary>
     /// Dummy Program class for entry point
     /// </summary>
     public partial class Program { }
 }
-
-
-
