@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace qckdev.AspNetCore
+namespace qckdev.AspNetCore.Exceptions
 {
-
     /// <summary>
     /// A base class for exceptions handled by <see cref="QDependencyInjection.UseSerializedExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)"/>.
     /// </summary>
@@ -21,7 +19,7 @@ namespace qckdev.AspNetCore
         /// <summary>
         /// Gets or sets additional object information for the exception.
         /// </summary>
-        public virtual dynamic Content { get; set; }
+        public virtual dynamic? Content { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpHandledException"/> class with a specific message that describes the current exception.
@@ -32,7 +30,7 @@ namespace qckdev.AspNetCore
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpHandledException"/> class with a specific message that describes the current exception and an inner exception.
         /// </summary>
-        public HttpHandledException(HttpStatusCode errorCode, string message, Exception innerException) : base(message, innerException)
+        public HttpHandledException(HttpStatusCode errorCode, string message, Exception? innerException) : base(message, innerException)
         {
             this.ErrorCode = errorCode;
         }
@@ -46,6 +44,7 @@ namespace qckdev.AspNetCore
         /// <param name="context">
         /// The <see cref="StreamingContext"/> that contains contextual information about the source or destination.
         /// </param>
+        [Obsolete]
         protected HttpHandledException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     }

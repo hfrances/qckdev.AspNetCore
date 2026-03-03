@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <Version>2.0.0</Version>
+    <Authors>hfrances</Authors>
+    <Company>TrCode</Company>
+    <Product>qckdev.AspNetCore.Mvc.Controllers</Product>
+    <Description>Base controllers for MVC and API applications</Description>
+    <PackageProjectUrl>https://github.com/hfrances/qckdev.AspNetCore</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
+  </ItemGroup>
+
+</Project>
