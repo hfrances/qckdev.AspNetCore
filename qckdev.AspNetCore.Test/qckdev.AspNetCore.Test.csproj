@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -19,7 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
+    <ProjectReference Include="..\qckdev.AspNetCore.Abstractions\qckdev.AspNetCore.Abstractions.csproj" />
+    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers\qckdev.AspNetCore.Mvc.Controllers.csproj" />
+    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Headers\qckdev.AspNetCore.Mvc.Headers.csproj" />
   </ItemGroup>
 
 </Project>
