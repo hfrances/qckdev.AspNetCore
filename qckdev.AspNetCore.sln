@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37012.4 d17.14
+VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qckdev.AspNetCore", "qckdev.AspNetCore\qckdev.AspNetCore.csproj", "{9796B367-9801-48E0-807C-96D26F5D7ABD}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "qckdev-suite", "qckdev-suite", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qckdev.Net.Abstractions", "..\qckdev.Net.Http\qckdev.Net.Abstractions\qckdev.Net.Abstractions.csproj", "{35B226DB-68A8-6D8F-079B-8874CED9FCF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qckdev.AspNetCore.Mvc.Headers", "qckdev.AspNetCore.Mvc.Headers\qckdev.AspNetCore.Mvc.Headers.csproj", "{BF868900-3EF1-65D8-5DBC-1305F3001455}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{35B226DB-68A8-6D8F-079B-8874CED9FCF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35B226DB-68A8-6D8F-079B-8874CED9FCF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35B226DB-68A8-6D8F-079B-8874CED9FCF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF868900-3EF1-65D8-5DBC-1305F3001455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF868900-3EF1-65D8-5DBC-1305F3001455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF868900-3EF1-65D8-5DBC-1305F3001455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF868900-3EF1-65D8-5DBC-1305F3001455}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
