@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace qckdev.AspNetCore.Exceptions
 {
     /// <summary>
-    /// A base class for exceptions handled by <see cref="QDependencyInjection.UseSerializedExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)"/>.
+    /// A base class for exceptions handled by <see cref="QDependencyInjection.UseSerializedExceptionHandler"/>.
     /// </summary>
     [Serializable]
     public class HttpHandledException : Exception

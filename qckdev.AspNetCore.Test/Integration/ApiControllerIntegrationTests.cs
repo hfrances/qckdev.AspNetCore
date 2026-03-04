@@ -13,8 +13,8 @@ namespace qckdev.AspNetCore.Test.Integration
     [TestClass]
     public class ApiControllerIntegrationTests
     {
-        private TestApplicationFactory _factory;
-        private HttpClient _client;
+        private TestApplicationFactory _factory = null!;
+        private HttpClient _client = null!;
 
         [TestInitialize]
         public void Setup()
