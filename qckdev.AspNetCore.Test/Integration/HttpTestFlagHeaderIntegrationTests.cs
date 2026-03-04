@@ -12,7 +12,7 @@ namespace qckdev.AspNetCore.Test.Integration
     /// Tests the HttpHeaderValidatorMiddleware with a custom test-flag header.
     /// </summary>
     [TestClass]
-    public class TestFlagHeaderIntegrationTests
+    public class HttpTestFlagHeaderIntegrationTests
     {
         private TestFlagHeaderTestApplicationFactory _factory = null!;
         private HttpClient _client = null!;

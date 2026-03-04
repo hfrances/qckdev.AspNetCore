@@ -1,43 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
-using qckdev.AspNetCore.Mvc.Controllers;
 using qckdev.AspNetCore.Mvc.Headers;
 
 namespace qckdev.AspNetCore.Test.Fixtures
 {
     /// <summary>
-    /// Test controller for HTTP header validation testing
+    /// Test controller for HTTP Accept-Language header validation testing
     /// </summary>
     [ApiController]
     [Route("api/headers")]
     public class HttpHeaderTestController : ControllerBase
     {
         /// <summary>
-        /// Endpoint that requires the sw-user header (mandatory)
+        /// Endpoint that requires the Accept-Language header (mandatory)
         /// </summary>
-        [HttpGet("with-mandatory-user-header")]
-        [HttpUserHeader(isAvailable: true, isMandatory: true)]
-        public IActionResult GetWithMandatoryUserHeader()
+        [HttpGet("with-mandatory-accept-language")]
+        [HttpAcceptLanguageHeader(isAvailable: true, isMandatory: true)]
+        public IActionResult GetWithMandatoryAcceptLanguage()
         {
-            var userHeader = HttpContext.Request.Headers["sw-user"].ToString();
-            return Ok(new { message = "User header is valid", user = userHeader });
+            var languageHeader = HttpContext.Request.Headers["Accept-Language"].ToString();
+            return Ok(new { message = "Accept-Language header is valid", language = languageHeader });
         }
 
         /// <summary>
-        /// Endpoint with optional sw-user header
+        /// Endpoint with optional Accept-Language header
         /// </summary>
-        [HttpGet("with-optional-user-header")]
-        [HttpUserHeader(isAvailable: true, isMandatory: false)]
-        public IActionResult GetWithOptionalUserHeader()
+        [HttpGet("with-optional-accept-language")]
+        [HttpAcceptLanguageHeader(isAvailable: true, isMandatory: false)]
+        public IActionResult GetWithOptionalAcceptLanguage()
         {
-            var userHeader = HttpContext.Request.Headers["sw-user"].ToString();
-            return Ok(new { message = "User header is optional", user = userHeader });
+            var languageHeader = HttpContext.Request.Headers["Accept-Language"].ToString();
+            return Ok(new { message = "Accept-Language header is optional", language = languageHeader });
         }
 
         /// <summary>
         /// Endpoint with unavailable header (should pass through)
         /// </summary>
         [HttpGet("with-unavailable-header")]
-        [HttpUserHeader(isAvailable: false, isMandatory: true)]
+        [HttpAcceptLanguageHeader(isAvailable: false, isMandatory: true)]
         public IActionResult GetWithUnavailableHeader()
         {
             return Ok(new { message = "Endpoint with unavailable header" });
@@ -50,17 +49,6 @@ namespace qckdev.AspNetCore.Test.Fixtures
         public IActionResult GetWithoutHeader()
         {
             return Ok(new { message = "No header required" });
-        }
-
-        /// <summary>
-        /// Endpoint that requires the sw-company header (mandatory)
-        /// </summary>
-        [HttpGet("with-mandatory-company-header")]
-        [HttpCompanyHeader(isAvailable: true, isMandatory: true)]
-        public IActionResult GetWithMandatoryCompanyHeader()
-        {
-            var companyHeader = HttpContext.Request.Headers["sw-company"].ToString();
-            return Ok(new { message = "Company header is valid", company = companyHeader });
         }
     }
 }

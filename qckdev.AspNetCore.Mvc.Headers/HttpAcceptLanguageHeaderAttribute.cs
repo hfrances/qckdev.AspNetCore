@@ -11,8 +11,11 @@ namespace qckdev.AspNetCore.Mvc.Headers
     {
         public static readonly string HeaderNameValue = "Accept-Language";
 
+        /// <inheritdoc/>
         public string HeaderName { get; } = HeaderNameValue;
+        /// <inheritdoc/>
         public bool IsAvailable { get; }
+        /// <inheritdoc/>
         public bool IsMandatory { get; }
 
         public HttpAcceptLanguageHeaderAttribute()

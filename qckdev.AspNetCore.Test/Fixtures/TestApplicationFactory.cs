@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -69,8 +68,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
                     app.UseSerializedExceptionHandler();
                     app.UseRouting();
                     // Add header validation middleware for each header type
-                    app.UseHttpHeader<HttpUserHeaderAttribute>();
-                    app.UseHttpHeader<HttpCompanyHeaderAttribute>();
+                    app.UseHttpHeader<HttpAcceptLanguageHeaderAttribute>();
                     app.UseEndpoints(endpoints => endpoints.MapControllers());
                 }));
         }
