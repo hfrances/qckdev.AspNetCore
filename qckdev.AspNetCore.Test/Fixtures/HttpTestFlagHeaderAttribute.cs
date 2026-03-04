@@ -1,7 +1,7 @@
 using qckdev.AspNetCore.Http.Metadata;
 using System;
 
-namespace qckdev.AspNetCore.Mvc.Headers
+namespace qckdev.AspNetCore.Test.Fixtures
 {
     /// <summary>
     /// Specifies that requests contain the 'test-flag' header.
@@ -9,7 +9,9 @@ namespace qckdev.AspNetCore.Mvc.Headers
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HttpTestFlagHeaderAttribute : Attribute, IHttpHeaderAttribute
     {
-        public string HeaderName { get; } = "test-flag";
+        public static readonly string HeaderNameValue = "test-flag";
+
+        public string HeaderName { get; } = HeaderNameValue;
         public bool IsAvailable { get; }
         public bool IsMandatory { get; }
 

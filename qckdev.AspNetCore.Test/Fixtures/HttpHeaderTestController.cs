@@ -15,7 +15,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint that requires the sw-user header (mandatory)
         /// </summary>
         [HttpGet("with-mandatory-user-header")]
-        [HttpUserHeaderAttribute(isAvailable: true, isMandatory: true)]
+        [HttpUserHeader(isAvailable: true, isMandatory: true)]
         public IActionResult GetWithMandatoryUserHeader()
         {
             var userHeader = HttpContext.Request.Headers["sw-user"].ToString();
@@ -26,7 +26,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint with optional sw-user header
         /// </summary>
         [HttpGet("with-optional-user-header")]
-        [HttpUserHeaderAttribute(isAvailable: true, isMandatory: false)]
+        [HttpUserHeader(isAvailable: true, isMandatory: false)]
         public IActionResult GetWithOptionalUserHeader()
         {
             var userHeader = HttpContext.Request.Headers["sw-user"].ToString();
@@ -37,7 +37,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint with unavailable header (should pass through)
         /// </summary>
         [HttpGet("with-unavailable-header")]
-        [HttpUserHeaderAttribute(isAvailable: false, isMandatory: true)]
+        [HttpUserHeader(isAvailable: false, isMandatory: true)]
         public IActionResult GetWithUnavailableHeader()
         {
             return Ok(new { message = "Endpoint with unavailable header" });
@@ -56,7 +56,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint that requires the sw-company header (mandatory)
         /// </summary>
         [HttpGet("with-mandatory-company-header")]
-        [HttpCompanyHeaderAttribute(isAvailable: true, isMandatory: true)]
+        [HttpCompanyHeader(isAvailable: true, isMandatory: true)]
         public IActionResult GetWithMandatoryCompanyHeader()
         {
             var companyHeader = HttpContext.Request.Headers["sw-company"].ToString();

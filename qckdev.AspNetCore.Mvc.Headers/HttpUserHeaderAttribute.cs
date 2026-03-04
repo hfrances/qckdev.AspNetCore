@@ -9,8 +9,9 @@ namespace qckdev.AspNetCore.Mvc.Headers
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HttpUserHeaderAttribute : Attribute, IHttpHeaderAttribute
     {
+        public static readonly string HeaderNameValue = "sw-user";
 
-        public string HeaderName { get; } = "sw-user";
+        public string HeaderName { get; } = HeaderNameValue;
         public bool IsAvailable { get; }
         public bool IsMandatory { get; }
 

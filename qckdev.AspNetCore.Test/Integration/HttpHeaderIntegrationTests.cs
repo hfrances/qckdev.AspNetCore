@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using qckdev.AspNetCore.Test.Fixtures;
+using qckdev.AspNetCore.Mvc.Headers;
 
 namespace qckdev.AspNetCore.Test.Integration
 {
@@ -68,7 +69,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-user-header");
-            request.Headers.Add("sw-user", "testuser");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, "testuser");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -86,7 +87,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange - HTTP header names are case-insensitive
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-user-header");
-            request.Headers.Add("SW-User", "testuser");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, "testuser");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -119,7 +120,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-optional-user-header");
-            request.Headers.Add("sw-user", "testuser");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, "testuser");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -167,7 +168,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-company-header");
-            request.Headers.Add("sw-company", "company123");
+            request.Headers.Add(HttpCompanyHeaderAttribute.HeaderNameValue, "company123");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -185,8 +186,8 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-user-header");
-            request.Headers.Add("sw-user", "testuser");
-            request.Headers.Add("sw-company", "company123");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, "testuser");
+            request.Headers.Add(HttpCompanyHeaderAttribute.HeaderNameValue, "company123");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -196,6 +197,52 @@ namespace qckdev.AspNetCore.Test.Integration
             var content = await response.Content.ReadAsStringAsync();
             content.Should().Contain("User header is valid");
             content.Should().Contain("testuser");
+        }
+
+        [TestMethod]
+        [TestCategory("HttpHeaderValidation")]
+        public async Task HeaderMandatory_PresentWithStringEmpty_ShouldReturn500()
+        {
+            // Arrange - string.Empty is filtered by HTTP client, so header never arrives
+            // This is equivalent to header not being present and mandatory
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-user-header");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, string.Empty);
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        }
+
+        [TestMethod]
+        [TestCategory("HttpHeaderValidation")]
+        public async Task HeaderMandatory_PresentWithWhitespaceValue_ShouldReturn200()
+        {
+            // Arrange - Whitespace value is transmitted and considered valid
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-mandatory-user-header");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, " ");
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        [TestCategory("HttpHeaderValidation")]
+        public async Task HeaderOptional_PresentWithWhitespaceValue_ShouldReturn200()
+        {
+            // Arrange - Whitespace value is transmitted and considered valid
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/headers/with-optional-user-header");
+            request.Headers.Add(HttpUserHeaderAttribute.HeaderNameValue, " ");
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }

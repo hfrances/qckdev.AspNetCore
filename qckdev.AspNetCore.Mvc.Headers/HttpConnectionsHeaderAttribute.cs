@@ -9,8 +9,9 @@ namespace qckdev.AspNetCore.Mvc.Headers
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HttpConnectionsHeaderAttribute : Attribute, IHttpHeaderAttribute
     {
+        public static readonly string HeaderNameValue = "Connection";
 
-        public string HeaderName { get; } = "Connection";
+        public string HeaderName { get; } = HeaderNameValue;
         public bool IsAvailable { get; }
         public bool IsMandatory { get; }
 

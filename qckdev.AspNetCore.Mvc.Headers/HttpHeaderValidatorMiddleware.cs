@@ -57,8 +57,19 @@ namespace qckdev.AspNetCore.Mvc.Headers
         {
             var attribute = endpoint.Metadata.GetMetadata<THttpHeaderAttribute>();
             
-            return attribute is {IsMandatory: false } || 
-                context.Request.Headers.Keys.Select(a => a.ToLower()).Contains(_headerName.ToLower());
+            if (attribute is {IsMandatory: false })
+                return true;
+
+            // Check if header exists and has a non-empty value
+            var headerKey = context.Request.Headers.Keys
+                .FirstOrDefault(k => k.Equals(_headerName, StringComparison.OrdinalIgnoreCase));
+
+            if (headerKey == null)
+                return false;
+
+            // Validate that the header value is not null or empty (but whitespace is allowed)
+            var headerValue = context.Request.Headers[headerKey].ToString();
+            return !string.IsNullOrEmpty(headerValue);
         }
 
         private bool IsHeaderAvailable(Endpoint endpoint)

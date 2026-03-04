@@ -8,16 +8,16 @@ namespace qckdev.AspNetCore.Test.Fixtures
     /// </summary>
     [ApiController]
     [Route("api/testflag")]
-    public class TestFlagHeaderTestController : ControllerBase
+    public class HttpTestFlagHeaderTestController : ControllerBase
     {
         /// <summary>
         /// Endpoint that requires the test-flag header (mandatory)
         /// </summary>
         [HttpGet("mandatory-flag")]
-        [HttpTestFlagHeaderAttribute(isAvailable: true, isMandatory: true)]
+        [HttpTestFlagHeader(isAvailable: true, isMandatory: true)]
         public IActionResult GetWithMandatoryTestFlag()
         {
-            var flagHeader = HttpContext.Request.Headers["test-flag"].ToString();
+            var flagHeader = HttpContext.Request.Headers[HttpTestFlagHeaderAttribute.HeaderNameValue].ToString();
             return Ok(new { message = "Test-flag header is required", flag = flagHeader });
         }
 
@@ -25,10 +25,10 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint with optional test-flag header
         /// </summary>
         [HttpGet("optional-flag")]
-        [HttpTestFlagHeaderAttribute(isAvailable: true, isMandatory: false)]
+        [HttpTestFlagHeader(isAvailable: true, isMandatory: false)]
         public IActionResult GetWithOptionalTestFlag()
         {
-            var flagHeader = HttpContext.Request.Headers["test-flag"].ToString();
+            var flagHeader = HttpContext.Request.Headers[HttpTestFlagHeaderAttribute.HeaderNameValue].ToString();
             return Ok(new { message = "Test-flag header is optional", flag = flagHeader });
         }
 
@@ -36,7 +36,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
         /// Endpoint with unavailable test-flag header (should pass through)
         /// </summary>
         [HttpGet("unavailable-flag")]
-        [HttpTestFlagHeaderAttribute(isAvailable: false, isMandatory: true)]
+        [HttpTestFlagHeader(isAvailable: false, isMandatory: true)]
         public IActionResult GetWithUnavailableTestFlag()
         {
             return Ok(new { message = "Endpoint with unavailable test-flag header" });

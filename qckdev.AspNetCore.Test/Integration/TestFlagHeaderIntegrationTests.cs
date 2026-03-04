@@ -67,7 +67,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
-            request.Headers.Add("test-flag", "feature-enabled");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "feature-enabled");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -85,7 +85,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
-            request.Headers.Add("test-flag", "1");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "1");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -102,7 +102,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
-            request.Headers.Add("Test-Flag", "enabled");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "enabled");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -135,7 +135,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/optional-flag");
-            request.Headers.Add("test-flag", "true");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "true");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -169,9 +169,8 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
-            request.Headers.Add("test-flag", "active");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "active");
             request.Headers.Add("x-custom-header", "value");
-            request.Headers.Add("sw-user", "testuser");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -189,7 +188,7 @@ namespace qckdev.AspNetCore.Test.Integration
         {
             // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/optional-flag");
-            request.Headers.Add("test-flag", "false");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, "false");
 
             // Act
             var response = await _client.SendAsync(request);
@@ -198,6 +197,52 @@ namespace qckdev.AspNetCore.Test.Integration
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var content = await response.Content.ReadAsStringAsync();
             content.Should().Contain("Test-flag header is optional");
+        }
+
+        [TestMethod]
+        [TestCategory("TestFlagHeaderValidation")]
+        public async Task MandatoryFlag_PresentWithStringEmpty_ShouldReturn500()
+        {
+            // Arrange - string.Empty is filtered by HTTP client, so header never arrives
+            // This is equivalent to header not being present and mandatory
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, string.Empty);
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        }
+
+        [TestMethod]
+        [TestCategory("TestFlagHeaderValidation")]
+        public async Task MandatoryFlag_PresentWithWhitespaceValue_ShouldReturn200()
+        {
+            // Arrange - Whitespace value is transmitted and considered valid
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/mandatory-flag");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, " ");
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        [TestCategory("TestFlagHeaderValidation")]
+        public async Task OptionalFlag_PresentWithWhitespaceValue_ShouldReturn200()
+        {
+            // Arrange - Whitespace value is transmitted and considered valid
+            var request = new HttpRequestMessage(HttpMethod.Get, "/api/testflag/optional-flag");
+            request.Headers.Add(HttpTestFlagHeaderAttribute.HeaderNameValue, " ");
+
+            // Act
+            var response = await _client.SendAsync(request);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }

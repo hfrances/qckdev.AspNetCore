@@ -9,8 +9,9 @@ namespace qckdev.AspNetCore.Mvc.Headers
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class HttpAcceptLanguageHeaderAttribute : Attribute, IHttpHeaderAttribute
     {
+        public static readonly string HeaderNameValue = "Accept-Language";
 
-        public string HeaderName { get; } = "Accept-Language";
+        public string HeaderName { get; } = HeaderNameValue;
         public bool IsAvailable { get; }
         public bool IsMandatory { get; }
 

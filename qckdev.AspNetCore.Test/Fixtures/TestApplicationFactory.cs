@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using qckdev.AspNetCore.Mvc.Headers;
-using qckdev.AspNetCore.Test.Fixtures;
 
 namespace qckdev.AspNetCore.Test.Fixtures
 {
@@ -101,7 +100,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
                 {
                     services.AddHttpContextAccessor();
                     services.AddControllers()
-                        .AddApplicationPart(typeof(TestFlagHeaderTestController).Assembly);
+                        .AddApplicationPart(typeof(HttpTestFlagHeaderTestController).Assembly);
                     services.AddMediatR(cfg => 
                         cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
                 })
