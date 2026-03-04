@@ -108,7 +108,7 @@ namespace qckdev.AspNetCore.Test.Integration
 
             // Assert
             response.Content.Headers.ContentType.Should().NotBeNull();
-            response.Content.Headers.ContentType.MediaType.Should().Be("application/json");
+            response.Content.Headers.ContentType!.MediaType.Should().Be("application/json");
         }
     }
 }
