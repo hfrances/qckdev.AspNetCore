@@ -64,9 +64,16 @@ namespace qckdev.AspNetCore.Test.Fixtures
     /// </summary>
     public class TestVoidCommandHandler : IRequestHandler<TestVoidCommand>
     {
+#if MEDIATR_LEGACY
+        public Task<Unit> Handle(TestVoidCommand request, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(Unit.Value);
+        }
+#else
         public Task Handle(TestVoidCommand request, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
+#endif
     }
 }

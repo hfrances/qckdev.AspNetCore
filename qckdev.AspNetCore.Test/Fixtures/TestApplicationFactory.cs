@@ -23,8 +23,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
                     services.AddHttpContextAccessor();
                     services.AddControllers()
                         .AddApplicationPart(typeof(TestApiController).Assembly);
-                    services.AddMediatR(cfg => 
-                        cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
+                    services.AddMediatRCompatibility(typeof(TestGetDataQueryHandler).Assembly);
                 })
                 .Configure(app =>
                 {
@@ -59,9 +58,9 @@ namespace qckdev.AspNetCore.Test.Fixtures
                     services.AddHttpContextAccessor();
                     services.AddControllers()
                         .AddApplicationPart(typeof(HttpHeaderTestController).Assembly);
-                    services.AddMediatR(cfg => 
-                        cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
+                    services.AddMediatRCompatibility(typeof(TestGetDataQueryHandler).Assembly);
                 })
+
                 .Configure(app =>
                 {
                     // Add exception handling middleware first to catch exceptions from header validation
@@ -99,8 +98,7 @@ namespace qckdev.AspNetCore.Test.Fixtures
                     services.AddHttpContextAccessor();
                     services.AddControllers()
                         .AddApplicationPart(typeof(HttpTestFlagHeaderTestController).Assembly);
-                    services.AddMediatR(cfg => 
-                        cfg.RegisterServicesFromAssembly(typeof(TestGetDataQueryHandler).Assembly));
+                    services.AddMediatRCompatibility(typeof(TestGetDataQueryHandler).Assembly);
                 })
                 .Configure(app =>
                 {
