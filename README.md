@@ -1,7 +1,7 @@
-<a href="https://www.nuget.org/packages/qckdev.AspNetCore"><img src="https://img.shields.io/nuget/v/qckdev.AspNetCore.svg" alt="NuGet Version"/></a>
-<a href="https://sonarcloud.io/dashboard?id=qckdev.AspNetCore"><img src="https://sonarcloud.io/api/project_badges/measure?project=qckdev.AspNetCore&metric=alert_status" alt="Quality Gate"/></a>
-<a href="https://sonarcloud.io/dashboard?id=qckdev.AspNetCore"><img src="https://sonarcloud.io/api/project_badges/measure?project=qckdev.AspNetCore&metric=coverage" alt="Code Coverage"/></a>
-<a><img src="https://hfrances.visualstudio.com/Main/_apis/build/status/qckdev.AspNetCore?branchName=master" alt="Azure Pipelines Status"/></a>
+[![NuGet Version](https://img.shields.io/nuget/v/qckdev.AspNetCore.svg)](https://www.nuget.org/packages/qckdev.AspNetCore)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=qckdev.AspNetCore&metric=alert_status)](https://sonarcloud.io/dashboard?id=qckdev.AspNetCore)
+[![Code Coverage](https://sonarcloud.io/api/project_badges/measure?project=qckdev.AspNetCore&metric=coverage)](https://sonarcloud.io/dashboard?id=qckdev.AspNetCore)
+![Azure Pipelines Status](https://hfrances.visualstudio.com/Main/_apis/build/status/qckdev.AspNetCore?branchName=master)
 
 # qckdev.AspNetCore
 
@@ -50,3 +50,8 @@ app.MapControllers();
 app.Run();
 ```
 
+## 🤝 Contributing
+Issues and pull requests are welcome! See the contribution guidelines (coming soon).
+
+## 📜 License
+This project is licensed under the terms of the [MIT License](LICENSE).
