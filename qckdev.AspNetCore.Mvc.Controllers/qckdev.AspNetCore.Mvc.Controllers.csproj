@@ -10,6 +10,7 @@
     <Product>qckdev.AspNetCore.Mvc.Controllers</Product>
     <Description>Base controllers for MVC and API applications</Description>
     <PackageProjectUrl>https://github.com/hfrances/qckdev.AspNetCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -20,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

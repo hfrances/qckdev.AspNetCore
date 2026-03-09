@@ -11,6 +11,7 @@
     <Product>qckdev.AspNetCore.Abstractions</Product>
     <Description>Abstractions and core interfaces for qckdev.AspNetCore</Description>
     <PackageProjectUrl>https://github.com/hfrances/qckdev.AspNetCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>Hmy.Web.Common.AspNetCore</RootNamespace>
@@ -39,6 +40,10 @@
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.25" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.25" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\qckdev.AspNetCore\README.md" Pack="true" PackagePath="\" Link="README.md" />
   </ItemGroup>
 
 </Project>

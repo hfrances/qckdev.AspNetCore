@@ -10,12 +10,17 @@
     <Product>qckdev.AspNetCore.Mvc.Headers</Product>
     <Description>HTTP header validation and metadata for MVC applications</Description>
     <PackageProjectUrl>https://github.com/hfrances/qckdev.AspNetCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

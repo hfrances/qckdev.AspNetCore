@@ -5,55 +5,48 @@
 
 # qckdev.AspNetCore
 
-Provides a default set of tools for building an ASP.NET Core application.
+Toolkit for building ASP.NET Core applications with reusable middleware, MVC helpers, headers validation, and abstractions.
 
-```cs
+## Packages
+
+This repository contains the following packable libraries:
+
+- `qckdev.AspNetCore`:
+  [Package README](./qckdev.AspNetCore/README.md)
+- `qckdev.AspNetCore.Abstractions`:
+  [Package README](./qckdev.AspNetCore.Abstractions/README.md)
+- `qckdev.AspNetCore.Mvc.Controllers` (MediatR v12):
+  [Package README](./qckdev.AspNetCore.Mvc.Controllers/README.md)
+- `qckdev.AspNetCore.Mvc.Controllers.Legacy` (MediatR v11):
+  [Package README](./qckdev.AspNetCore.Mvc.Controllers.Legacy/README.md)
+- `qckdev.AspNetCore.Mvc.Headers`:
+  [Package README](./qckdev.AspNetCore.Mvc.Headers/README.md)
+
+## Quick Start
+
+```csharp
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using qckdev.AspNetCore.Localization;
+using qckdev.AspNetCore.Swagger;
 
-public void ConfigureServices(IServiceCollection services)
-{
-	services.AddDataInitializer<DataInitialization>();
-	services.AddControllers();
-}
+var builder = WebApplication.CreateBuilder(args);
 
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-	(...)
+builder.Services.AddControllers();
+builder.Services.AddHostEnvironmentService();
+builder.Services.AddDataInitializer<SeedDataInitializer>();
+builder.Services.AddLocalization<ApplicationResource>("en-US");
+builder.Services.AddSwagger(c => c.AddSecurityBearer("Bearer"));
 
-	app.UseJsonExceptionHandler();
-	app.UseRouting();
+var app = builder.Build();
 
-	(...)
+app.UseSerializedExceptionHandler();
+app.UseRouting();
+app.UseLocalization();
+app.UseSwagger();
+app.UseDataInitializer();
+app.MapControllers();
 
-	app.DataInitialization();
-}
-```
-
-```cs
-using Microsoft.Extensions.Configuration;
-using qckdev.AspNetCore.Infrastructure.Data;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-public class DataInitialization : IDataInitializer
-{
-	public DataInitialization(
-			IServiceProvider services,
-			IConfiguration configuration, 
-			...)
-	{
-		(...)
-	}
-
-	public async Task InitializeAsync(CancellationToken cancellationToken)
-	{
-		(...)
-	}
-}
+app.Run();
 ```
 

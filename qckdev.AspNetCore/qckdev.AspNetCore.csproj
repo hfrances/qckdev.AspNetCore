@@ -10,6 +10,7 @@
     <Product>qckdev.AspNetCore</Product>
     <Description>Provides a default set of tools for building an ASP.NET Core application.</Description>
     <PackageProjectUrl>https://github.com/hfrances/qckdev.AspNetCore</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -88,6 +89,10 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

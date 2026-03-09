@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net8.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -28,26 +28,32 @@
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.3.9" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.32" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net10.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.36" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
-    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Abstractions\qckdev.AspNetCore.Abstractions.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Headers\qckdev.AspNetCore.Mvc.Headers.csproj" />
-    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers.Legacy\qckdev.AspNetCore.Mvc.Controllers.Legacy.csproj" 
-      Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0'"
-    />
-    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers\qckdev.AspNetCore.Mvc.Controllers.csproj" 
-      Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net10.0'"
-    />
+    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers.Legacy\qckdev.AspNetCore.Mvc.Controllers.Legacy.csproj" Condition="'$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0'" />
+    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers\qckdev.AspNetCore.Mvc.Controllers.csproj" Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net10.0'" />
   </ItemGroup>
 
 </Project>

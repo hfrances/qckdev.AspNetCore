@@ -102,5 +102,19 @@ namespace qckdev.AspNetCore.Test.Integration
     ///       body.Message.Should().NotBeNullOrEmpty();
     ///   }
     /// </summary>
+#if NET5_0_OR_GREATER
     public record ErrorResponse(string Message, string[]? Errors = null);
+#else
+    public class ErrorResponse
+    {
+        public string Message { get; set; }
+        public string[]? Errors { get; set; }
+
+        public ErrorResponse(string message, string[]? errors = null)
+        {
+            Message = message;
+            Errors = errors;
+        }
+    }
+#endif
 }
