@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -16,24 +16,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.32" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.17" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.36" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
@@ -47,8 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Abstractions\qckdev.AspNetCore.Abstractions.csproj" />
-    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Headers\qckdev.AspNetCore.Mvc.Headers.csproj" />
-    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers.Legacy\qckdev.AspNetCore.Mvc.Controllers.Legacy.csproj" />
+    <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers\qckdev.AspNetCore.Mvc.Controllers.csproj" />
   </ItemGroup>
 
 </Project>

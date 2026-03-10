@@ -1,13 +1,9 @@
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace qckdev.AspNetCore.Test.Fixtures
 {
-    /// <summary>
-    /// Test query for retrieving data
-    /// </summary>
     public class TestGetDataQuery : IRequest<TestDataResponse>
     {
         public int Id { get; set; }
@@ -18,9 +14,6 @@ namespace qckdev.AspNetCore.Test.Fixtures
         }
     }
 
-    /// <summary>
-    /// Test command
-    /// </summary>
     public class TestVoidCommand : IRequest
     {
         public string Message { get; set; }
@@ -31,9 +24,6 @@ namespace qckdev.AspNetCore.Test.Fixtures
         }
     }
 
-    /// <summary>
-    /// Test response model
-    /// </summary>
     public class TestDataResponse
     {
         public int Id { get; set; }
@@ -47,9 +37,6 @@ namespace qckdev.AspNetCore.Test.Fixtures
         }
     }
 
-    /// <summary>
-    /// Handler for test query
-    /// </summary>
     public class TestGetDataQueryHandler : IRequestHandler<TestGetDataQuery, TestDataResponse>
     {
         public Task<TestDataResponse> Handle(TestGetDataQuery request, CancellationToken cancellationToken)
@@ -59,14 +46,11 @@ namespace qckdev.AspNetCore.Test.Fixtures
         }
     }
 
-    /// <summary>
-    /// Handler for test void command
-    /// </summary>
     public class TestVoidCommandHandler : IRequestHandler<TestVoidCommand>
     {
-        public Task<Unit> Handle(TestVoidCommand request, CancellationToken cancellationToken)
+        public Task Handle(TestVoidCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(Unit.Value);
+            return Task.CompletedTask;
         }
     }
 }
