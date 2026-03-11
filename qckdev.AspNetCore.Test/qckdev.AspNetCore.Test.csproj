@@ -47,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\qckdev.AspNetCore\qckdev.AspNetCore.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Abstractions\qckdev.AspNetCore.Abstractions.csproj" />
+    <ProjectReference Include="..\qckdev.AspNetCore.FluentValidation\qckdev.AspNetCore.FluentValidation.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Headers\qckdev.AspNetCore.Mvc.Headers.csproj" />
     <ProjectReference Include="..\qckdev.AspNetCore.Mvc.Controllers.Legacy\qckdev.AspNetCore.Mvc.Controllers.Legacy.csproj" />
   </ItemGroup>
