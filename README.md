@@ -7,7 +7,7 @@
 
 Toolkit for building ASP.NET Core applications with reusable middleware, MVC helpers, headers validation, and abstractions.
 
-## Packages
+## 📦 Packages
 
 This repository contains the following packable libraries:
 
@@ -22,7 +22,13 @@ This repository contains the following packable libraries:
 - `qckdev.AspNetCore.Mvc.Headers`:
   [Package README](./qckdev.AspNetCore.Mvc.Headers/README.md)
 
-## Quick Start
+## 🛠️ Installation
+
+```bash
+dotnet add package qckdev.AspNetCore
+```
+
+## ⚡ Quick Start
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
