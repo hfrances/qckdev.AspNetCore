@@ -17,11 +17,13 @@ namespace qckdev.AspNetCore.Swagger.Filters
         {
             operation.Parameters ??= new List<OpenApiParameter>();
 
-            IEnumerable<IFilterMetadata> globalAttributes = context
-                .ApiDescription
-                .ActionDescriptor
-                .FilterDescriptors
-                .Select(x => x.Filter);
+            IEnumerable<IFilterMetadata> globalAttributes = 
+                context
+                    .ApiDescription
+                    .ActionDescriptor
+                    .FilterDescriptors?
+                    .Select(x => x.Filter) 
+                ?? Enumerable.Empty<IFilterMetadata>();
 
             object[] controllerAttributes = context
                 .MethodInfo
