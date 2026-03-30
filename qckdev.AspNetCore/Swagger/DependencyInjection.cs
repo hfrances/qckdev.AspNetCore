@@ -67,7 +67,16 @@ namespace qckdev.AspNetCore.Swagger
             };
 
             c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-            c.OperationFilter<Filters.SecurityRequirementsOperationFilter>(jwtSecurityScheme);
+            c.AddSecurityRequirementsOperationFilter();
+        }
+
+        /// <summary>
+        /// Adds an operation filter that maps ASP.NET authorization metadata to OpenAPI security requirements.
+        /// </summary>
+        /// <param name="c">The SwaggerGen options.</param>
+        public static void AddSecurityRequirementsOperationFilter(this SwaggerGenOptions c)
+        {
+            c.OperationFilter<Filters.SecurityRequirementsOperationFilter>();
         }
 
         /// <summary>
